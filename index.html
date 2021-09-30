@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <title>Weather App</title>
+</head>
+<body>
+      <header class="hero">
+        <h1 class="d-flex justify-content-center">Weather Dashboard</h1>
+      </header>
+      <main class="flex-row justify-space-between">
+        <div class="row">
+        <div class="col-md-3">
+          <div class="card mb-3">
+            <h3 class="card-header">Search by City</h3>
+            <form id="city-form" class="card-body d-grid gap-2 d-md-block">
+              <!-- <label for="username" class="form-label">Username</label> -->
+              <input type="text" name="citysearch" id="citysearch" autofocus="true" class="form-input">
+              <button type="submit" class="btn btn-primary d-grid gap-2 d-md-block">Search</button>
+            </form>
+          </div>
+    
+          <div class="card">
+            <h3 class="card-header">Saved Cities</h3>
+            <div class="card-body d-grid gap-2 d-md-block" id="language-buttons">
+                <p><em>Use localStorage to save these</em></p>
+              <button class="btn btn-secondary" data-language="city-number">City 1</button>
+
+            </div>
+          </div>
+        
+        </div>
+        <div class="col-md-9 ">
+          <div class="row card p-2">Searched City Data (will be dynamic)</div>
+          <h2 class="subtitle mt-3 ">5-Day Forecast: <span id="repo-search-term"></span></h2>
+          <div id="weather-container" class="list-group forecast" style="margin-top:10px;">
+            <div class="row justify-content-between mr-1">
+                <div class="col-2 col-md-2 forecast-block m-1 p-1">
+                    testing
+                </div> 
+                <div class="col-2 col-md-2 forecast-block m-1 p-1">
+                    testing
+                </div> 
+                <div class="col-2 col-md-2 forecast-block m-1 p-1">
+                    testing
+                </div> 
+                <div class="col-2 col-md-2 forecast-block m-1 p-1">
+                    testing
+                </div> 
+                <div class="col-2 col-md-2 forecast-block m-1 p-1">
+                    testing
+                </div> 
+            </div>
+          </div>
+        </div>
+    </div>
+      </main>
+
+      <!-- scripts -->
+      <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+      <script src="./assets/js/app.js"></script>
+</body>
+</html>
