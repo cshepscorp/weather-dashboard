@@ -22,43 +22,30 @@
             <h3 class="card-header">Search by City</h3>
             <form id="city-form" class="card-body d-grid gap-2 d-md-block">
               <!-- <label for="username" class="form-label">Username</label> -->
-              <input type="text" name="citysearch" id="citysearch" autofocus="true" class="form-input">
+              <input type="text" name="citysearch" id="citysearch" autofocus="true" class="form-input" placeholder="Richmond">
               <button type="submit" class="btn btn-primary d-grid gap-2 d-md-block">Search</button>
             </form>
           </div>
     
           <div class="card">
             <h3 class="card-header">Saved Cities</h3>
-            <div class="card-body d-grid gap-2 d-md-block" id="language-buttons">
-                <p><em>Use localStorage to save these</em></p>
-              <button class="btn btn-secondary" data-language="city-number">City 1</button>
+            <div class="card-body d-grid gap-2 d-md-block" id="city-buttons">
+                <!-- Using localStorage to save these -->
 
             </div>
           </div>
         
         </div>
         <div class="col-md-9 ">
-          <div class="row card p-2">Searched City Data (will be dynamic)</div>
-          <h2 class="subtitle mt-3 ">5-Day Forecast: <span id="repo-search-term"></span></h2>
-          <div id="weather-container" class="list-group forecast" style="margin-top:10px;">
-            <div class="row justify-content-between mr-1">
-                <div class="col-2 col-md-2 forecast-block m-1 p-1">
-                    testing
-                </div> 
-                <div class="col-2 col-md-2 forecast-block m-1 p-1">
-                    testing
-                </div> 
-                <div class="col-2 col-md-2 forecast-block m-1 p-1">
-                    testing
-                </div> 
-                <div class="col-2 col-md-2 forecast-block m-1 p-1">
-                    testing
-                </div> 
-                <div class="col-2 col-md-2 forecast-block m-1 p-1">
-                    testing
-                </div> 
-            </div>
+          <div class="row card p-3 mr-1" id="current-weather">
+            <h2><span id="city-search-term"></span> (<span id="current-time"></span>)</h2>
           </div>
+          <h3 class="subtitle mt-3 ">5-Day Forecast:</3>
+
+            <div id="forecast-container" class="row justify-space-between forecast " style="margin-top:10px;">
+              
+            </div>
+
         </div>
     </div>
       </main>

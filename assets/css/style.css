@@ -1,14 +1,43 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 main {
     margin: 20px auto;
     width: 98%;
   }
 
+li {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
 .hero {
     color: #fff;
     background-color: blue;
 }
+input {
+  width: 100%;;
+}
+#city-search-term {
+  text-transform: capitalize;
+}
+
 .forecast-block {
-    background-color: #999;
+  border: 1px #999 solid;
+  border-radius: .3rem;
+  background-color: #273f4f;
+  color: #fff;
+  font-size: 14px;
+}
+
+.no-bullets {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
 .list-item {
@@ -23,7 +52,6 @@ main {
     width: 100%;
     display: block;
     margin: 5px 0;
-    border-radius: var(--border-radius);
     color: #fff;
     border-radius: .3rem;
 
