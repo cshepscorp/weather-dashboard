@@ -18,7 +18,7 @@ currentTime.textContent = moment().format('L');
 var getSearchedCity = function(city) {
   // format the github api url
   // var apiUrl_old = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=dbafc1b1b5a7f951673e49ae6a6bdea5";
-  var apiUrl = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&standard&appid=dbafc1b1b5a7f951673e49ae6a6bdea5";
+  var apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&standard&appid=dbafc1b1b5a7f951673e49ae6a6bdea5";
   fetch(apiUrl).then(function(response) {
   response.json().then(function(data) {
     displayCurrentWeather(data, city);
@@ -84,7 +84,7 @@ var savedCityEventHandler = function() {
 var uvIndex = function(response){
   city = document.getElementById("city-search-term").textContent;
   console.log(city + ' is getting called from uvIndex');
-  var currentApiUrl = 'http://api.openweathermap.org/data/2.5/weather?q='
+  var currentApiUrl = 'https://api.openweathermap.org/data/2.5/weather?q='
     + city + 
     '&appid=dbafc1b1b5a7f951673e49ae6a6bdea5';
   fetch(currentApiUrl)
@@ -225,7 +225,7 @@ var displayCurrentWeather = function(weather, searchTerm){
 
   currentWeatherDivEl.innerHTML = `
   <div class="list-item">
-    <img src="http://openweathermap.org/img/wn/${cityIcon}.png" />
+    <img src="https://openweathermap.org/img/wn/${cityIcon}.png" />
     <li>Temp: ${cityTemp}</li>
     <li>Wind: ${cityWind}</li>
     <li>Humidity: ${cityHumidity}</li>
@@ -255,7 +255,7 @@ var displayCurrentWeather = function(weather, searchTerm){
 
     // create a span element to hold weather icon
     var forecastIconEl = document.createElement("img");
-    forecastIconEl.setAttribute('src', `http://openweathermap.org/img/wn/${cityForecastIcon}.png`);
+    forecastIconEl.setAttribute('src', `https://openweathermap.org/img/wn/${cityForecastIcon}.png`);
 
     // create a li element to hold temp
     var forecastTempEl = document.createElement("li");
