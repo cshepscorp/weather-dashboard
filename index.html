@@ -21,7 +21,6 @@
           <div class="card mb-3">
             <h3 class="card-header">Search by City</h3>
             <form id="city-form" class="card-body d-grid gap-2 d-md-block">
-              <!-- <label for="username" class="form-label">Username</label> -->
               <input type="text" name="citysearch" id="citysearch" autofocus="true" class="form-input" placeholder="Richmond">
               <button type="submit" class="btn btn-primary d-grid gap-2 d-md-block">Search</button>
             </form>
@@ -38,8 +37,11 @@
         </div>
         <div class="col-md-9 ">
           <div class="row card p-3 mr-1" id="current-weather">
-            <h2><span id="city-search-term"></span> (<span id="current-time"></span>)</h2>
+            <h2><span id="city-search-term"></span> <span id="current-time"></span></h2>
+            <p id="current-weather-div"></p>
+            <span id="uv-index"></span>
           </div>
+          
           <h3 class="subtitle mt-3 ">5-Day Forecast:</3>
 
             <div id="forecast-container" class="row justify-space-between forecast " style="margin-top:10px;">

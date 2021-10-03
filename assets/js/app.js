@@ -7,11 +7,13 @@ var savedCityButtonEl = document.querySelectorAll(".saved-city"); // search area
 var chosenCitySearchTerm = document.querySelector("#city-search-term");
 var chosenCityData = document.querySelector("#citysearch");
 var currentWeatherEl = document.querySelector("#current-weather");
+var currentWeatherDivEl = document.querySelector('#current-weather-div');
+var uvIndexEl = document.querySelector("#uv-index");
 var forecastContainerEl = document.querySelector("#forecast-container");
 
 // date stuff
 var currentTime = document.querySelector("#current-time");
-currentTime.textContent = moment().format('dddd, MMMM Do');
+currentTime.textContent = moment().format('L');
 
 var getSearchedCity = function(city) {
   // format the github api url
@@ -20,31 +22,12 @@ var getSearchedCity = function(city) {
   fetch(apiUrl).then(function(response) {
   response.json().then(function(data) {
     displayCurrentWeather(data, city);
+    uvIndex();
     });
   });
 
 };
 
-// display UV index
-var uvIndex = function(){
-  fetch('https://api.openweathermap.org/data/2.5/onecall?lat='
-  + cityLat +
-  '&lon='
-  + cityLon +
-  '&appid=dbafc1b1b5a7f951673e49ae6a6bdea5')
-  .then(function(response) {
-    return response.json();
-  })
-  .then(function(response) {
-    // Create a variable to hold the title of the Wikipedia article
-    var uvIndexValue = response.current[0].uvi;
-    console.log(uvIndexValue + ' is');
-    // create a li element to hold weather humidity
-    var weatherUvIndexEl = document.createElement("li");
-    weatherUvIndexEl.textContent = 'UV Index: ' + uvIndexValue;
-    currentWeatherDivEl.appendChild(weatherUvIndexEl);
-  })
-} 
 
 var formSubmitHandler = function(event) {
   event.preventDefault();
@@ -54,8 +37,6 @@ var formSubmitHandler = function(event) {
   if(city) {  
     getSearchedCity(city);
     cityInputEl.value = "";
-    // getForecastCity(city);
-    // cityInputEl.value = "";
 
     // stops program from creating an empty button when user doesn't input a city
     var cityButtonValue = city;
@@ -63,10 +44,7 @@ var formSubmitHandler = function(event) {
     cityButton.classList = 'btn btn-secondary saved-city';
     cityButton.textContent = cityButtonValue;
     cityButton.setAttribute('id', cityButtonValue);
-    // cityButton.setAttribute('name', '');
     cityButton.setAttribute('type', 'submit');
-    // cityButton.setAttribute('onclick', 'savedCityEventHandler()');
-    // cityButton.setAttribute('onclick', `displayCurrentWeather(weather, ${cityButtonValue})`);
 
     cityButtons.append(cityButton);
 
@@ -102,6 +80,53 @@ var savedCityEventHandler = function() {
   console.log('savedCityEventHandler is loaded')
 };
 
+// display UV index
+var uvIndex = function(response){
+  city = document.getElementById("city-search-term").textContent;
+  console.log(city + ' is getting called from uvIndex');
+  var currentApiUrl = 'http://api.openweathermap.org/data/2.5/weather?q='
+    + city + 
+    '&appid=dbafc1b1b5a7f951673e49ae6a6bdea5';
+  fetch(currentApiUrl)
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(response) {
+    // Create a variable to hold the title of the Wikipedia article
+    var cityLon = response.coord.lon;
+    var cityLat = response.coord.lat;
+    console.log(cityLon + ' is');
+    console.log(cityLat + ' is');
+
+    fetch('https://api.openweathermap.org/data/2.5/onecall?lat='
+  + cityLat +
+  '&lon='
+  + cityLon +
+  '&appid=dbafc1b1b5a7f951673e49ae6a6bdea5')
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(response) {
+    // Create a variable to hold the title of the Wikipedia article
+    var uvIndexValue = response.current.uvi;
+    console.log(uvIndexValue + ' is');
+
+    if (uvIndexValue < 3) {
+      uvRating = 'btn-success' 
+    } else if (uvIndexValue >= 3 && uvIndexValue < 8) { 
+      uvRating = 'btn-warning'
+    } else {
+      uvRating = 'btn-danger'
+    }
+
+    uvIndexEl.innerHTML = `<li style="margin-left: 10px;">UV Index: <button class="${uvRating} uv-btn disabled">${uvIndexValue}</button></li>`;
+    // uvIndexEl.appendChild(weatherUvIndexEl);
+  })
+  })
+  
+} 
+
+
 var loadCityButtons = function() {
   var savedCityButtons = localStorage.getItem("saved city buttons");
   console.log(typeof savedCityButtons); // string
@@ -134,7 +159,7 @@ var loadCityButtons = function() {
 
 $(document).on('click','.saved-city',function(){
   event.preventDefault();
-
+  
   var cityButton = $(this).attr("id");
   console.log(cityButton + ' is from new event listener');
   getSearchedCity(cityButton);
@@ -171,54 +196,51 @@ var displayCurrentWeather = function(weather, searchTerm){
   var cityWind = weather.list[0].wind.speed;
   var cityHumidity = weather.list[0].main.humidity;
   var cityIcon = weather.list[0].weather[0].icon;
-  // var cityLon = weather.coord.lon;
-  // var cityLat = weather.coord.lat;
-  console.log('city temp: ' + cityTemp);
-  console.log('city wind: ' + cityWind);
-  console.log('city Humidity: ' + cityHumidity);
-  console.log('city Icon: ' + cityIcon);
-  // console.log('city lat: ' + cityLat);
-  // console.log('city lon: ' + cityLon);
-  
-  //once you get things to save to localStorage, try refreshing page upon resubmission so current weather resets
+
   // create a container for current weather
-  var currentWeatherDivEl = document.createElement('div');
-  currentWeatherDivEl.classList = 'list-item';
+  // var currentWeatherDivEl = document.createElement('div');
+  // currentWeatherDivEl.classList = 'list-item';
 
-  // create a span element to hold weather icon
-  var weatherIconEl = document.createElement("li");
-  // weatherIconEl.textContent = 'Icon: ' + cityIcon;
-  weatherIconEl.innerHTML = `<img src="http://openweathermap.org/img/wn/${cityIcon}.png"/>`;
+  // // create a span element to hold weather icon
+  // var weatherIconEl = document.createElement("img");
+  // weatherIconEl.setAttribute('src', `http://openweathermap.org/img/wn/${cityIcon}.png`);
 
-  // create a span element to hold weather temp
-  var weatherTempEl = document.createElement("li");
-  weatherTempEl.textContent = 'Temp: ' + cityTemp;
+  // // create a span element to hold weather temp
+  // var weatherTempEl = document.createElement("li");
+  // weatherTempEl.textContent = 'Temp: ' + cityTemp;
 
-  // create a li element to hold weather wind
-  var weatherWindEl = document.createElement("li");
-  weatherWindEl.textContent = 'Wind: ' + cityWind;
+  // // create a li element to hold weather wind
+  // var weatherWindEl = document.createElement("li");
+  // weatherWindEl.textContent = 'Wind: ' + cityWind;
 
-  // create a li element to hold weather humidity
-  var weatherHumidityEl = document.createElement("li");
-  weatherHumidityEl.textContent = 'Humidity: ' + cityHumidity;
+  // // create a li element to hold weather humidity
+  // var weatherHumidityEl = document.createElement("li");
+  // weatherHumidityEl.textContent = 'Humidity: ' + cityHumidity;
 
-  var weatherIconEl = document.createElement("li");
-  weatherIconEl.innerHTML = `Icon: ` + cityIcon;
+  // // append to container
+  // currentTime.appendChild(weatherIconEl);
+  // currentWeatherDivEl.appendChild(weatherTempEl);
+  // currentWeatherDivEl.appendChild(weatherWindEl);
+  // currentWeatherDivEl.appendChild(weatherHumidityEl);
 
-  // append to container
-  currentWeatherDivEl.appendChild(weatherIconEl);
-  currentWeatherDivEl.appendChild(weatherTempEl);
-  currentWeatherDivEl.appendChild(weatherWindEl);
-  currentWeatherDivEl.appendChild(weatherHumidityEl);
+  currentWeatherDivEl.innerHTML = `
+  <div class="list-item">
+    <img src="http://openweathermap.org/img/wn/${cityIcon}.png" />
+    <li>Temp: ${cityTemp}</li>
+    <li>Wind: ${cityWind}</li>
+    <li>Humidity: ${cityHumidity}</li>
+  </div>`
   
-  // append container to the dom/div
-  currentWeatherEl.appendChild(currentWeatherDivEl);
+  // // append container to the dom/div
+  // currentWeatherEl.appendChild(currentWeatherDivEl);
 
   // display forecast
   forecastContainerEl.textContent = '';
   // loop over weather forecast
   for (var i = 1; i < 6; i++) {
-    // format repo name
+    var cityForecastDate = moment().add([i], 'd').format('L');
+    // var cityForecastDate = weather.list[0].dt_txt;
+    var cityForecastIcon = weather.list[0].weather[0].icon;
     var cityForecastTemp = weather.list[i].main.temp;
     var cityForecastWind = weather.list[i].wind.speed;
     var cityForecastHumidity = weather.list[i].main.humidity;
@@ -226,6 +248,14 @@ var displayCurrentWeather = function(weather, searchTerm){
     // create a container for each repo
     var forecastEl = document.createElement("div");
     forecastEl.classList = "flex-row col-md-2 col-sm-2 forecast-block m-1 p-1";
+
+    // create a li element to hold date
+    var forecastDateEl = document.createElement("li");
+    forecastDateEl.textContent = cityForecastDate;
+
+    // create a span element to hold weather icon
+    var forecastIconEl = document.createElement("img");
+    forecastIconEl.setAttribute('src', `http://openweathermap.org/img/wn/${cityForecastIcon}.png`);
 
     // create a li element to hold temp
     var forecastTempEl = document.createElement("li");
@@ -240,17 +270,21 @@ var displayCurrentWeather = function(weather, searchTerm){
     forecastHumidityEl.textContent = 'Humidity: ' + cityForecastHumidity;
 
     // append to container
+    forecastEl.appendChild(forecastDateEl);
+    forecastEl.appendChild(forecastIconEl);
     forecastEl.appendChild(forecastTempEl);
     forecastEl.appendChild(forecastWindEl);
     forecastEl.appendChild(forecastHumidityEl);
 
     // append container to the dom
     forecastContainerEl.appendChild(forecastEl);
+
   }
 }
 
 getSearchedCity();
 loadCityButtons();
+
 citySearchFormEl.addEventListener("submit", formSubmitHandler);
 
 
