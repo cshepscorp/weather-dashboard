@@ -127,7 +127,7 @@ var uvIndex = function(response){
 
 var loadCityButtons = function() {
   var savedCityButtons = localStorage.getItem("saved city buttons");
-  console.log(typeof savedCityButtons); // string
+  // console.log(typeof savedCityButtons); // string
 
   // are there any cities saved in LS?
   if (savedCityButtons === null) {
@@ -139,7 +139,7 @@ var loadCityButtons = function() {
     for (var i = 0; i < savedCityButtonItems.length; i++) {
       var newCityButton = document.createElement('button');
       newCityButton.classList = 'btn btn-secondary saved-city';
-      console.log('savedcitybtn items: ' + savedCityButtonItems);
+      // console.log('savedcitybtn items: ' + savedCityButtonItems);
       // savedCityButtonItems = JSON.stringify(savedCityButtonItems);
       newCityButton.textContent = savedCityButtonItems[i].name;
       newCityButton.setAttribute('id', savedCityButtonItems[i].name);
@@ -156,7 +156,6 @@ $(document).on('click','.saved-city',function(){
   event.preventDefault();
   
   var cityButton = $(this).attr("id");
-  console.log(cityButton + ' is from new event listener');
   getSearchedCity(cityButton);
 });
 
@@ -180,7 +179,6 @@ var displayCurrentWeather = function(weather, searchTerm){
   // clear old content
   chosenCityData.textContent = "";
   chosenCitySearchTerm.textContent = searchTerm;
-  console.log('is chosen city: ' + searchTerm);
   // format weather
   var cityTemp = weather.list[0].main.temp;
   // convert from Kelvin to Fahrenheit
@@ -245,6 +243,13 @@ var displayCurrentWeather = function(weather, searchTerm){
 
   }
 }
+
+$(document).on('click','#clear-buttons',function(){
+  event.preventDefault();
+  localStorage.clear();
+  location.reload();
+
+});
 
 loadCityButtons();
 

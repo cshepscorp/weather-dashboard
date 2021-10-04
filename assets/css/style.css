@@ -28,6 +28,12 @@ h1 {
 input {
   width: 100%;;
 }
+
+#clear-buttons {
+  color: #333;
+}
+
+
 #city-search-term {
   text-transform: capitalize;
 }
