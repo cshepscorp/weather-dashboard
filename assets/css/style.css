@@ -17,8 +17,14 @@ li {
 
 .hero {
     color: #fff;
-    background-color: blue;
+    
+    background-image: linear-gradient(to right, blue , purple);
 }
+
+h1 {
+  font-size: 2em;
+}
+
 input {
   width: 100%;;
 }
@@ -31,7 +37,7 @@ p {
 }
 
 .uv-btn {
-  padding: 4px;
+  padding: 0px 4px;
   border-radius: .3rem;
 }
 
@@ -80,3 +86,9 @@ p {
     border-radius: .3rem;
 
 }
+/* 
+@media screen and (max-width:575px) {
+  p {
+    margin-bottom: 2px;
+  }
+} */
