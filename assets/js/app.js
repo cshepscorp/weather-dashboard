@@ -20,15 +20,20 @@ var getSearchedCity = function(city) {
   // format the github api url
 
   var apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&standard&appid=dbafc1b1b5a7f951673e49ae6a6bdea5";
-  fetch(apiUrl).then(function(response) {
+  fetch(apiUrl)
+  .then(function(response) {
     if (response.ok) {
     response.json().then(function(data) {
       displayCurrentWeather(data, city);
       uvIndex();
       });
     } else {
-      console.log('something went wrong');
+      alert('something went wrong');
     }
+  })
+  .catch(function(error) {
+    // Notice this `.catch()` getting chained onto the end of the `.then()` method
+    currentWeatherDivEl.innerHTML = 'Sorry. We were unable to connect to the OpenWeatherMap API';
   });
 
 };
