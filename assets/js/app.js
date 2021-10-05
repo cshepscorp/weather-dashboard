@@ -126,6 +126,10 @@ var uvIndex = function(response){
       }
       uvIndexEl.innerHTML = `<li style="margin-left: 10px;">UV Index: <button class="${uvRating} uv-btn disabled">${uvIndexValue}</button></li>`;
     })
+    .catch(function(error) {
+      // Notice this `.catch()` getting chained onto the end of the `.then()` method
+      forecastContainerEl.innerHTML = 'Sorry. We were unable to connect to the OpenWeatherMap API forecast';
+    });
   })
   
 } 
@@ -214,7 +218,7 @@ var displayCurrentWeather = function(weather, searchTerm){
 
     // create a container for each repo
     var forecastEl = document.createElement("div");
-    forecastEl.classList = "flex-row col-md-2 col-sm-2 forecast-block m-1 p-3";
+    forecastEl.classList = "flex-row col-5 col-md-2 col-sm-2 forecast-block m-1 p-3";
 
     // create a li element to hold date
     var forecastDateEl = document.createElement("li");
