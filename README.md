@@ -1,11 +1,37 @@
-GIVEN a weather dashboard with form inputs
-WHEN I search for a city
-THEN I am presented with current and future conditions for that city and that city is added to the search history
-WHEN I view current weather conditions for that city
-THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
-WHEN I view the UV index
-THEN I am presented with a color that indicates whether the conditions are favorable, moderate, or severe
-WHEN I view future weather conditions for that city
-THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
-WHEN I click on a city in the search history
-THEN I am again presented with current and future conditions for that city
+# Work Day Scheduler
+Week 6 Challenge: Weather Dashboard
+
+## Purpose
+
+A weather dashboard app that allows user to search by city
+
+## Functionality
+
+* Current weather displayed in main area
+
+* 5 day forecast displayed in area below
+
+* Searched cities get saved to a section with clickable buttons in area below main city search 
+
+* Searched cities get saved in localStorage 
+
+* User can clear their saved cities with click of clear my saved cities link
+
+![Image of the app](assets/images/app-preview.png)
+
+## Links to Content
+
+* [URL of the GitHub repository](https://github.com/cshepscorp/weather-dashboard)
+
+* [URL of the deployed application](https://cshepscorp.github.io/weather-dashboard/)
+
+## Built With
+
+* HTML
+
+* CSS
+
+* Javascript
+
+* Fetch
+
