@@ -1,4 +1,4 @@
-# Work Day Scheduler
+# Weather Dashboard App
 Week 6 Challenge: Weather Dashboard
 
 ## Purpose
