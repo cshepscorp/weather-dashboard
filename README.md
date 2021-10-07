@@ -13,7 +13,7 @@ A weather dashboard app that allows user to search by city
 
 * Searched cities get saved to a section with clickable buttons in area below main city search 
 
-* Searched cities get saved in localStorage 
+* Searched cities get saved in localStorage so they stay on refresh
 
 * User can clear their saved cities with click of clear my saved cities link
 
